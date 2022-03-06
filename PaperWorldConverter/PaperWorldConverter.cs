@@ -113,7 +113,28 @@ namespace PaperWorldConverter
                 return;
             }
 
-
+            //Check for existence of output folder, ask user if we should create it
+            if (!Directory.Exists(txtOutputWorld.Text))
+            {
+                string message = "Output folder doesn't exist, create it?";
+                if (MessageBox.Show(message, "Invalid Output Folder", MessageBoxButtons.YesNo) == DialogResult.OK)
+                {
+                    //Create output folder
+                    try
+                    {
+                        Directory.CreateDirectory(txtOutputWorld.Text);
+                    } catch (Exception exception)
+                    {
+                        txtStatus.AppendText("Error creating output directory: " + exception.Message);
+                        enableControls();
+                        return;
+                    }
+                } else
+                {
+                    enableControls();
+                    return;
+                }
+            }
 
         }
     }
