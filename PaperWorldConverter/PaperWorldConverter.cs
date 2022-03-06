@@ -95,23 +95,24 @@ namespace PaperWorldConverter
         private void btnConvert_Click(object sender, EventArgs e)
         {
             disableControls();
+            txtStatus.AppendText("Checking folders...");
 
             //Check for existence of input folders
             if (!Directory.Exists(txtInputWorldMain.Text))
             {
-                txtStatus.AppendText("Main world folder invalid");
+                txtStatus.AppendText("\r\nMain world folder invalid!");
                 enableControls();
                 return;
             }
             if (!Directory.Exists(lblInputWorldNether.Text))
             {
-                txtStatus.AppendText("Nether folder invalid");
+                txtStatus.AppendText("\r\nNether folder invalid!");
                 enableControls();
                 return;
             }
             if (!Directory.Exists(lblInputWorldEnd.Text))
             {
-                txtStatus.AppendText("End folder invalid");
+                txtStatus.AppendText("\r\nEnd folder invalid!");
                 enableControls();
                 return;
             }
@@ -128,7 +129,7 @@ namespace PaperWorldConverter
                         Directory.CreateDirectory(txtOutputWorld.Text);
                     } catch (Exception exception)
                     {
-                        txtStatus.AppendText("Error creating output directory: " + exception.Message);
+                        txtStatus.AppendText("\r\nError creating output directory: " + exception.Message);
                         enableControls();
                         return;
                     }
@@ -152,7 +153,7 @@ namespace PaperWorldConverter
                 CloneDirectory(inputWorldMain, outputWorldMain);
             } catch (Exception exception)
             {
-                txtStatus.AppendText("Error copying world files: " + exception.Message);
+                txtStatus.AppendText("\r\nError copying world files: " + exception.Message);
                 enableControls();
                 return;
             }
@@ -160,7 +161,7 @@ namespace PaperWorldConverter
             //Copy nether folder to DIM-1 in output
             if (!Directory.Exists(Path.Combine(inputWorldNether, "DIM-1")))
             {
-                txtStatus.AppendText("No DIM-1 folder in nether folder, can't convert world");
+                txtStatus.AppendText("\r\nNo DIM-1 folder in nether folder, can't convert world");
                 enableControls();
                 return;
             }
@@ -169,7 +170,7 @@ namespace PaperWorldConverter
                 CloneDirectory(Path.Combine(inputWorldNether, "DIM-1"), Path.Combine(outputWorldMain, "DIM-1"));
             } catch (Exception exception)
             {
-                txtStatus.AppendText("Error copying nether files: " + exception.Message);
+                txtStatus.AppendText("\r\nError copying nether files: " + exception.Message);
                 enableControls();
                 return;
             }
@@ -177,7 +178,7 @@ namespace PaperWorldConverter
             //Copy end folder to DIM-1 in output
             if (!Directory.Exists(Path.Combine(inputWorldNether, "DIM1")))
             {
-                txtStatus.AppendText("No DIM1 folder in end dimension folder, can't convert world");
+                txtStatus.AppendText("\r\nNo DIM1 folder in end dimension folder, can't convert world");
                 enableControls();
                 return;
             }
@@ -187,7 +188,7 @@ namespace PaperWorldConverter
             }
             catch (Exception exception)
             {
-                txtStatus.AppendText("Error copying end dimension files: " + exception.Message);
+                txtStatus.AppendText("\r\nError copying end dimension files: " + exception.Message);
                 enableControls();
                 return;
             }
@@ -217,13 +218,30 @@ namespace PaperWorldConverter
             } 
             catch (Exception exception)
             {
-                txtStatus.AppendText("Error modifying level.dat: " + exception.Message);
+                txtStatus.AppendText("\r\nError modifying level.dat: " + exception.Message);
                 enableControls();
                 return;
             }
             
-            
+            //Delete old folders if needed
+            if (deleteAfterConvert)
+            {
+                try
+                {
+                    Directory.Delete(inputWorldMain);
+                    Directory.Delete(inputWorldNether);
+                    Directory.Delete(inputWorldEnd);
+                }
+                catch (Exception exception)
+                {
+                    txtStatus.AppendText("\r\nError deleting original folders: " + exception.Message);
+                }
+                
+            }
 
+            //Done!
+            txtStatus.AppendText("\r\nWorld conversion complete!");
+            enableControls();
 
         }
 
