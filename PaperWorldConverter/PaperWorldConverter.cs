@@ -137,7 +137,7 @@ namespace PaperWorldConverter
             if (!Directory.Exists(txtOutputWorld.Text))
             {
                 string message = "Output folder doesn't exist, create it?";
-                if (MessageBox.Show(message, "Nonexistent Output Folder", MessageBoxButtons.YesNo) == DialogResult.OK)
+                if (MessageBox.Show(message, "Nonexistent Output Folder", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     //Create output folder
                     try
