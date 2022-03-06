@@ -95,6 +95,10 @@ namespace PaperWorldConverter
         private void btnConvert_Click(object sender, EventArgs e)
         {
             disableControls();
+            if (txtStatus.Text != "")
+            {
+                txtStatus.AppendText("\r\n");
+            }
             txtStatus.AppendText("Checking folders...");
 
             //Check for existence of input folders
