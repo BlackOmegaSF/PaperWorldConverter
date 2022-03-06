@@ -93,6 +93,8 @@ namespace PaperWorldConverter
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            disableControls();
+
             //Check for existence of input folders
             if (!Directory.Exists(txtInputWorldMain.Text))
             {
@@ -136,6 +138,80 @@ namespace PaperWorldConverter
                 }
             }
 
+            //Set up variables
+            string inputWorldMain = txtInputWorldMain.Text;
+            string inputWorldNether = lblInputWorldNether.Text;
+            string inputWorldEnd = lblInputWorldEnd.Text;
+            string outputWorldMain = txtOutputWorld.Text;
+            bool deleteAfterConvert = cbxDeleteInputWorld.Checked;
+
+            //Copy main world files to new world folder
+            try
+            {
+                CloneDirectory(inputWorldMain, outputWorldMain);
+            } catch (Exception exception)
+            {
+                txtStatus.AppendText("Error copying world files: " + exception.Message);
+                enableControls();
+                return;
+            }
+
+            //Copy nether folder to DIM-1 in output
+            if (!Directory.Exists(Path.Combine(inputWorldNether, "DIM-1")))
+            {
+                txtStatus.AppendText("No DIM-1 folder in nether folder, can't convert world");
+                enableControls();
+                return;
+            }
+            try
+            {
+                CloneDirectory(Path.Combine(inputWorldNether, "DIM-1"), Path.Combine(outputWorldMain, "DIM-1"));
+            } catch (Exception exception)
+            {
+                txtStatus.AppendText("Error copying nether files: " + exception.Message);
+                enableControls();
+                return;
+            }
+
+            //Copy end folder to DIM-1 in output
+            if (!Directory.Exists(Path.Combine(inputWorldNether, "DIM1")))
+            {
+                txtStatus.AppendText("No DIM1 folder in end dimension folder, can't convert world");
+                enableControls();
+                return;
+            }
+            try
+            {
+                CloneDirectory(Path.Combine(inputWorldNether, "DIM1"), Path.Combine(outputWorldMain, "DIM1"));
+            }
+            catch (Exception exception)
+            {
+                txtStatus.AppendText("Error copying end dimension files: " + exception.Message);
+                enableControls();
+                return;
+            }
+
+
+
+
+        }
+
+        private static void CloneDirectory(string originalFolder, string destFolder)
+        {
+            foreach (var directory in Directory.GetDirectories(originalFolder))
+            {
+                string dirName = Path.GetFileName(directory);
+                if (!Directory.Exists(Path.Combine(destFolder, dirName)))
+                {
+                    Directory.CreateDirectory(Path.Combine(originalFolder, dirName));
+                }
+                CloneDirectory(directory, Path.Combine(destFolder, dirName));
+            }
+
+            foreach (var file in Directory.GetFiles(originalFolder))
+            {
+                File.Copy(file, Path.Combine(destFolder, Path.GetFileName(file)));
+            }
         }
     }
 }
