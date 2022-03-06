@@ -237,9 +237,9 @@ namespace PaperWorldConverter
             {
                 try
                 {
-                    Directory.Delete(inputWorldMain);
-                    Directory.Delete(inputWorldNether);
-                    Directory.Delete(inputWorldEnd);
+                    Directory.Delete(inputWorldMain, true);
+                    Directory.Delete(inputWorldNether, true);
+                    Directory.Delete(inputWorldEnd, true);
                 }
                 catch (Exception exception)
                 {
