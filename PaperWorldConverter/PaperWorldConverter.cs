@@ -1,4 +1,5 @@
-﻿using Ookii.Dialogs.WinForms;
+﻿using fNbt;
+using Ookii.Dialogs.WinForms;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -191,7 +192,18 @@ namespace PaperWorldConverter
                 return;
             }
 
+            //Fix playerdata if necessary
+            var levelDat = new NbtFile();
+            levelDat.LoadFromFile(Path.Combine(outputWorldMain, "level.dat"));
+            var mainData = levelDat.RootTag;
+            if (mainData.Contains("Player"))
+            {
+                //Delete player tag
+                mainData.Remove("Player");
+            }
 
+            //Fix level name in level.dat
+            
 
 
         }
