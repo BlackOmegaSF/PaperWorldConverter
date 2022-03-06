@@ -252,7 +252,7 @@ namespace PaperWorldConverter
                 string dirName = Path.GetFileName(directory);
                 if (!Directory.Exists(Path.Combine(destFolder, dirName)))
                 {
-                    Directory.CreateDirectory(Path.Combine(originalFolder, dirName));
+                    Directory.CreateDirectory(Path.Combine(destFolder, dirName));
                 }
                 CloneDirectory(directory, Path.Combine(destFolder, dirName));
             }
