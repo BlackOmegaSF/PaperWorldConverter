@@ -64,5 +64,37 @@ namespace PaperWorldConverter
                 txtOutputWorld.Text = vofd.SelectedPath;
             }
         }
+
+        private void disableControls()
+        {
+            txtInputWorldMain.Enabled = false;
+            btnInputWorldMain.Enabled = false;
+
+            cbxDeleteInputWorld.Enabled = false;
+
+            txtOutputWorld.Enabled = false;
+            btnOutputWorld.Enabled = false;
+
+            btnConvert.Enabled = false;
+        }
+
+        private void enableControls()
+        {
+            txtInputWorldMain.Enabled = true;
+            btnInputWorldMain.Enabled = true;
+
+            cbxDeleteInputWorld.Enabled = true;
+
+            txtOutputWorld.Enabled = true;
+            btnOutputWorld.Enabled = true;
+
+            btnConvert.Enabled = true;
+        }
+
+        private void btnConvert_Click(object sender, EventArgs e)
+        {
+            //Check for existence of input folders
+            if (!Directory.Exists(txt))
+        }
     }
 }
