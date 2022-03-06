@@ -131,7 +131,7 @@
 		</ItemGroup>
 		<PropertyGroup>
 			<OutputAssembly>$(OutputPath)PaperWorldConverter.Standalone.exe</OutputAssembly>
-			<Merger Condition="('$(OS)' == 'Windows_NT')">"$(SolutionDir)\packages\ILRepack.2.0.18\tools\ILRepack.exe"</Merger>
+			<Merger Condition="('$(OS)' == 'Windows_NT')">"$(SolutionDir)\packages\ILRepack.2.0.18\tools\ILRepack.exe" </Merger>
 		</PropertyGroup>
 		<Message Text="MERGING: @(MergeAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
 		<Exec Command="$(Merger) /out:&quot;$(OutputAssembly)&quot; @(MergeAssemblies->'&quot;%(FullPath)&quot;', ' ')" />
