@@ -176,7 +176,7 @@ namespace PaperWorldConverter
             }
 
             //Copy end folder to DIM-1 in output
-            if (!Directory.Exists(Path.Combine(inputWorldNether, "DIM1")))
+            if (!Directory.Exists(Path.Combine(inputWorldEnd, "DIM1")))
             {
                 txtStatus.AppendText("\r\nNo DIM1 folder in end dimension folder, can't convert world");
                 enableControls();
@@ -184,7 +184,7 @@ namespace PaperWorldConverter
             }
             try
             {
-                CloneDirectory(Path.Combine(inputWorldNether, "DIM1"), Path.Combine(outputWorldMain, "DIM1"));
+                CloneDirectory(Path.Combine(inputWorldEnd, "DIM1"), Path.Combine(outputWorldMain, "DIM1"));
             }
             catch (Exception exception)
             {
