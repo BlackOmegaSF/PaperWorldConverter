@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PaperWorldConverter")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCopyright("©2022 Kian Leiner")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
