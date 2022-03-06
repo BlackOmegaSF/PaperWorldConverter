@@ -142,6 +142,7 @@ namespace PaperWorldConverter
                     //Create output folder
                     try
                     {
+                        txtStatus.AppendText("\r\nCreating directory " + Path.GetFileName(txtOutputWorld.Text) + "...");
                         Directory.CreateDirectory(txtOutputWorld.Text);
                     } catch (Exception exception)
                     {
@@ -151,6 +152,7 @@ namespace PaperWorldConverter
                     }
                 } else
                 {
+                    txtStatus.AppendText("\r\nWorld conversion cancelled");
                     enableControls();
                     return;
                 }
@@ -166,10 +168,11 @@ namespace PaperWorldConverter
             //Copy main world files to new world folder
             try
             {
+                txtStatus.AppendText("\r\nCopying main world files...");
                 CloneDirectory(inputWorldMain, outputWorldMain);
             } catch (Exception exception)
             {
-                txtStatus.AppendText("\r\nError copying world files: " + exception.Message);
+                txtStatus.AppendText("\r\nError copying main world files: " + exception.Message);
                 enableControls();
                 return;
             }
@@ -183,10 +186,11 @@ namespace PaperWorldConverter
             }
             try
             {
+                txtStatus.AppendText("\r\nCopying nether dimension files...");
                 CloneDirectory(Path.Combine(inputWorldNether, "DIM-1"), Path.Combine(outputWorldMain, "DIM-1"));
             } catch (Exception exception)
             {
-                txtStatus.AppendText("\r\nError copying nether files: " + exception.Message);
+                txtStatus.AppendText("\r\nError copying nether dimension files: " + exception.Message);
                 enableControls();
                 return;
             }
@@ -200,6 +204,7 @@ namespace PaperWorldConverter
             }
             try
             {
+                txtStatus.AppendText("\r\nCopying end dimension files...");
                 CloneDirectory(Path.Combine(inputWorldEnd, "DIM1"), Path.Combine(outputWorldMain, "DIM1"));
             }
             catch (Exception exception)
@@ -211,6 +216,8 @@ namespace PaperWorldConverter
 
             try
             {
+                txtStatus.AppendText("\r\nApplying fixes to level.dat...");
+
                 //Load level.dat into NbtFile
                 var levelDat = new NbtFile();
                 levelDat.LoadFromFile(Path.Combine(outputWorldMain, "level.dat"));
@@ -249,6 +256,7 @@ namespace PaperWorldConverter
             {
                 try
                 {
+                    txtStatus.AppendText("\r\nRemoving original world files...");
                     Directory.Delete(inputWorldMain, true);
                     Directory.Delete(inputWorldNether, true);
                     Directory.Delete(inputWorldEnd, true);
