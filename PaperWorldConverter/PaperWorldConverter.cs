@@ -102,21 +102,33 @@ namespace PaperWorldConverter
             txtStatus.AppendText("Checking folders...");
 
             //Check for existence of input folders
-            if (!Directory.Exists(txtInputWorldMain.Text))
+            if (txtInputWorldMain.Text == "" || !Directory.Exists(txtInputWorldMain.Text))
             {
                 txtStatus.AppendText("\r\nMain world folder invalid!");
                 enableControls();
                 return;
             }
-            if (!Directory.Exists(lblInputWorldNether.Text))
+            if (txtInputWorldMain.Text == "" || !Directory.Exists(lblInputWorldNether.Text))
             {
                 txtStatus.AppendText("\r\nNether folder invalid!");
                 enableControls();
                 return;
             }
-            if (!Directory.Exists(lblInputWorldEnd.Text))
+            if (txtInputWorldMain.Text == "" || !Directory.Exists(lblInputWorldEnd.Text))
             {
                 txtStatus.AppendText("\r\nEnd folder invalid!");
+                enableControls();
+                return;
+            }
+
+            //Check for invalid output path
+            try
+            {
+                FileInfo outPathCheck = new FileInfo(txtOutputWorld.Text);
+            }
+            catch (Exception)
+            {
+                txtStatus.AppendText("\r\nOutput folder is invalid!");
                 enableControls();
                 return;
             }
@@ -125,7 +137,7 @@ namespace PaperWorldConverter
             if (!Directory.Exists(txtOutputWorld.Text))
             {
                 string message = "Output folder doesn't exist, create it?";
-                if (MessageBox.Show(message, "Invalid Output Folder", MessageBoxButtons.YesNo) == DialogResult.OK)
+                if (MessageBox.Show(message, "Nonexistent Output Folder", MessageBoxButtons.YesNo) == DialogResult.OK)
                 {
                     //Create output folder
                     try
