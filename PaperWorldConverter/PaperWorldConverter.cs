@@ -198,7 +198,10 @@ namespace PaperWorldConverter
                 //Load level.dat into NbtFile
                 var levelDat = new NbtFile();
                 levelDat.LoadFromFile(Path.Combine(outputWorldMain, "level.dat"));
-                NbtCompound mainData = (NbtCompound)levelDat.RootTag.Get("Data");
+                var mainData = levelDat.RootTag;
+
+                //DEBUG
+                Console.WriteLine(mainData.ToString("\t"));
 
                 //Fix playerdata if necessary
                 if (mainData.Contains("Player"))
@@ -214,7 +217,7 @@ namespace PaperWorldConverter
                     mainData.Add(new NbtString("LevelName", newLevelName));
                 }
                 //Set and save modified data
-                levelDat.RootTag = mainData;
+                var newLevelDat = new NbtFile(mainData);
                 levelDat.SaveToFile("level.dat", NbtCompression.GZip);
             } 
             catch (Exception exception)
