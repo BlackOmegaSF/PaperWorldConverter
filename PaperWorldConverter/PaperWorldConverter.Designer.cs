@@ -42,7 +42,7 @@
             this.toolTipOutputInfo = new System.Windows.Forms.ToolTip(this.components);
             this.txtOutputWorld = new System.Windows.Forms.TextBox();
             this.btnOutputWorld = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtStatus = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnConvert = new System.Windows.Forms.Button();
             this.grpInputWorld.SuspendLayout();
@@ -195,17 +195,18 @@
             this.btnOutputWorld.UseVisualStyleBackColor = true;
             this.btnOutputWorld.Click += new System.EventHandler(this.btnOutputWorld_Click);
             // 
-            // textBox1
+            // txtStatus
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txtStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 249);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(335, 114);
-            this.textBox1.TabIndex = 11;
+            this.txtStatus.Location = new System.Drawing.Point(12, 249);
+            this.txtStatus.Multiline = true;
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtStatus.Size = new System.Drawing.Size(335, 114);
+            this.txtStatus.TabIndex = 11;
             // 
             // lblStatus
             // 
@@ -237,7 +238,7 @@
             this.ClientSize = new System.Drawing.Size(359, 411);
             this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.btnOutputWorld);
             this.Controls.Add(this.txtOutputWorld);
             this.Controls.Add(this.lblOutputLocation);
@@ -265,7 +266,7 @@
         private System.Windows.Forms.ToolTip toolTipOutputInfo;
         private System.Windows.Forms.TextBox txtOutputWorld;
         private System.Windows.Forms.Button btnOutputWorld;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnConvert;
         private System.Windows.Forms.Label lblInputWorldNether;

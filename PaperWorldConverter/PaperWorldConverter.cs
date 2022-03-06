@@ -94,7 +94,27 @@ namespace PaperWorldConverter
         private void btnConvert_Click(object sender, EventArgs e)
         {
             //Check for existence of input folders
-            if (!Directory.Exists(txt))
+            if (!Directory.Exists(txtInputWorldMain.Text))
+            {
+                txtStatus.AppendText("Main world folder invalid");
+                enableControls();
+                return;
+            }
+            if (!Directory.Exists(lblInputWorldNether.Text))
+            {
+                txtStatus.AppendText("Nether folder invalid");
+                enableControls();
+                return;
+            }
+            if (!Directory.Exists(lblInputWorldEnd.Text))
+            {
+                txtStatus.AppendText("End folder invalid");
+                enableControls();
+                return;
+            }
+
+
+
         }
     }
 }
