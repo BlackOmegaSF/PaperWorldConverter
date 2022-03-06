@@ -198,7 +198,8 @@ namespace PaperWorldConverter
                 //Load level.dat into NbtFile
                 var levelDat = new NbtFile();
                 levelDat.LoadFromFile(Path.Combine(outputWorldMain, "level.dat"));
-                var mainData = levelDat.RootTag;
+                NbtCompound mainData = (NbtCompound)levelDat.RootTag.Get("Data");
+
                 //Fix playerdata if necessary
                 if (mainData.Contains("Player"))
                 {
