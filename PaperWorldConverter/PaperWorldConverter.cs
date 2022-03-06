@@ -192,17 +192,36 @@ namespace PaperWorldConverter
                 return;
             }
 
-            //Fix playerdata if necessary
-            var levelDat = new NbtFile();
-            levelDat.LoadFromFile(Path.Combine(outputWorldMain, "level.dat"));
-            var mainData = levelDat.RootTag;
-            if (mainData.Contains("Player"))
+            try
             {
-                //Delete player tag
-                mainData.Remove("Player");
+                //Load level.dat into NbtFile
+                var levelDat = new NbtFile();
+                levelDat.LoadFromFile(Path.Combine(outputWorldMain, "level.dat"));
+                var mainData = levelDat.RootTag;
+                //Fix playerdata if necessary
+                if (mainData.Contains("Player"))
+                {
+                    //Delete player tag
+                    mainData.Remove("Player");
+                }
+                //Fix level name in level.dat
+                string newLevelName = Path.GetFileName(outputWorldMain);
+                if (mainData.Contains("LevelName"))
+                {
+                    mainData.Remove("LevelName");
+                    mainData.Add(new NbtString("LevelName", newLevelName));
+                }
+                //Set and save modified data
+                levelDat.RootTag = mainData;
+                levelDat.SaveToFile("level.dat", NbtCompression.GZip);
+            } 
+            catch (Exception exception)
+            {
+                txtStatus.AppendText("Error modifying level.dat: " + exception.Message);
+                enableControls();
+                return;
             }
-
-            //Fix level name in level.dat
+            
             
 
 
